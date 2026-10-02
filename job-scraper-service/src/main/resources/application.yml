@@ -1,0 +1,40 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: job-scraper-service
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+scraper:
+  cron: ${SCRAPE_CRON:0 0 */3 * * *}
+  timezone: ${SCRAPE_TZ:UTC}
+  keywords: ${SCRAPE_KEYWORDS:java,spring boot,backend}
+  locations: ${SCRAPE_LOCATIONS:remote,bangalore}
+  max-results-per-query: 25
+  sources:
+    mock-enabled: ${SCRAPE_MOCK:true}
+    naukri-enabled: ${SCRAPE_NAUKRI:false}
+    linkedin-enabled: ${SCRAPE_LINKEDIN:false}
+  dedup:
+    ttl: 14d
+    key-prefix: "jobagent:seen:"
+
+logging:
+  level:
+    com.jobagent: INFO
+    org.apache.kafka: WARN

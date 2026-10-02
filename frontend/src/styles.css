@@ -1,0 +1,11 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #fafafa; color: #222; }
+button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.5; cursor: not-allowed; }
